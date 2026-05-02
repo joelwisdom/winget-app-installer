@@ -65,8 +65,13 @@ $logPath = New-InstallLog -LogDir $LogDir
 
 # --- Handle search mode ---
 if ($Search) {
-    Write-Status "Searching winget for '$Search'..." -Type Info
-    winget search $Search --accept-source-agreements
+    . "$PSScriptRoot\src\Search.ps1"
+    if ($Silent) {
+        Write-Status "Searching winget for '$Search'..." -Type Info
+        winget search $Search --accept-source-agreements
+    } else {
+        Start-InteractiveSearch -InitialQuery $Search -CatalogRoot $PSScriptRoot
+    }
     Wait-ForKeyPress
     exit 0
 }
