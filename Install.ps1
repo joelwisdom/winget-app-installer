@@ -6,6 +6,9 @@ param(
     [switch]$NoRun
 )
 
+# Bypass execution policy for this process so the user never has to do it manually
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
+
 $ErrorActionPreference = "Stop"
 $repo = "joelwisdom/winget-app-installer"
 $branch = "master"

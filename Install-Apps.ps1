@@ -9,6 +9,9 @@ param(
     [string]$LogDir
 )
 
+# --- Bypass execution policy for this process ---
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
+
 # --- Dot-source modules ---
 . "$PSScriptRoot\src\UI.ps1"
 . "$PSScriptRoot\src\Logger.ps1"
