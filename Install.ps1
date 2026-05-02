@@ -81,16 +81,17 @@ Remove-Item $extractPath -Recurse -Force -ErrorAction SilentlyContinue
 Write-Host "[+] Installed to $InstallDir" -ForegroundColor Green
 Write-Host ""
 Write-Host "    Usage:" -ForegroundColor White
-Write-Host "      Interactive:  powershell -ExecutionPolicy Bypass -File '$InstallDir\Install-Apps.ps1'" -ForegroundColor DarkGray
-Write-Host "      Profile:      powershell -ExecutionPolicy Bypass -File '$InstallDir\Install-Apps.ps1' -Profile profiles/developer.json" -ForegroundColor DarkGray
-Write-Host "      Dry-run:      powershell -ExecutionPolicy Bypass -File '$InstallDir\Install-Apps.ps1' -Profile profiles/developer.json -DryRun" -ForegroundColor DarkGray
-Write-Host "      Update all:   powershell -ExecutionPolicy Bypass -File '$InstallDir\Install-Apps.ps1' -UpdateAll" -ForegroundColor DarkGray
+Write-Host "      Interactive:  & '$InstallDir\Run-Installer.cmd'" -ForegroundColor DarkGray
+Write-Host "      Profile:      & '$InstallDir\Run-Installer.cmd' -Profile profiles/developer.json" -ForegroundColor DarkGray
+Write-Host "      Dry-run:      & '$InstallDir\Run-Installer.cmd' -Profile profiles/developer.json -DryRun" -ForegroundColor DarkGray
+Write-Host "      Update all:   & '$InstallDir\Run-Installer.cmd' -UpdateAll" -ForegroundColor DarkGray
 Write-Host ""
 
 # Run interactive mode unless told not to
 if (-not $NoRun) {
     $run = Read-Host "Launch interactive installer now? [Y/n]"
     if ($run -ne "n" -and $run -ne "N") {
-        powershell -NoProfile -ExecutionPolicy Bypass -File "$InstallDir\Install-Apps.ps1"
+        $cmdPath = Join-Path $InstallDir "Run-Installer.cmd"
+        cmd /c "`"$cmdPath`""
     }
 }
