@@ -50,25 +50,25 @@ To install to a custom directory:
 
 ```powershell
 # Interactive mode (default)
-.\Install-Apps.ps1
+powershell -ExecutionPolicy Bypass -File .\Install-Apps.ps1
 
 # Install from a profile
-.\Install-Apps.ps1 -Profile profiles/developer.json
+powershell -ExecutionPolicy Bypass -File .\Install-Apps.ps1 -Profile profiles/developer.json
 
 # Dry-run a profile (see what would install)
-.\Install-Apps.ps1 -Profile profiles/developer.json -DryRun
+powershell -ExecutionPolicy Bypass -File .\Install-Apps.ps1 -Profile profiles/developer.json -DryRun
 
 # Upgrade all installed catalog apps
-.\Install-Apps.ps1 -UpdateAll
+powershell -ExecutionPolicy Bypass -File .\Install-Apps.ps1 -UpdateAll
 
 # Search winget for an app
-.\Install-Apps.ps1 -Search "visual studio"
+powershell -ExecutionPolicy Bypass -File .\Install-Apps.ps1 -Search "visual studio"
 
 # Export installed apps to a profile
-.\Install-Apps.ps1 -Export my-setup.json
+powershell -ExecutionPolicy Bypass -File .\Install-Apps.ps1 -Export my-setup.json
 
 # Silent profile install (no prompts, for automation)
-.\Install-Apps.ps1 -Profile profiles/developer.json -Silent
+powershell -ExecutionPolicy Bypass -File .\Install-Apps.ps1 -Profile profiles/developer.json -Silent
 ```
 
 ## Parameters
