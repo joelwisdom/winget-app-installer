@@ -94,18 +94,23 @@ function Invoke-AppAction {
 
         [switch]$DryRun,
 
-        [string]$LogPath
+        [string]$LogPath,
+
+        [int]$CurrentIndex = 0,
+
+        [int]$TotalCount = 0
     )
 
     $dryLabel = if ($DryRun) { "[DRY RUN] " } else { "" }
+    $progressLabel = if ($TotalCount -gt 0) { "[$CurrentIndex/$TotalCount] " } else { "" }
 
     if ($Action -eq "Install") {
         if ($LogPath) { Write-Log -Path $LogPath -Message "${dryLabel}Installing $Id" -Level INFO }
-        Write-Status "${dryLabel}Installing $Id..." -Type Info
+        Write-Status "${progressLabel}${dryLabel}Installing $Id..." -Type Info
         $result = Install-WingetApp -Id $Id -DryRun:$DryRun
     } else {
         if ($LogPath) { Write-Log -Path $LogPath -Message "${dryLabel}Upgrading $Id" -Level INFO }
-        Write-Status "${dryLabel}Upgrading $Id..." -Type Info
+        Write-Status "${progressLabel}${dryLabel}Upgrading $Id..." -Type Info
         $result = Update-WingetApp -Id $Id -DryRun:$DryRun
     }
 

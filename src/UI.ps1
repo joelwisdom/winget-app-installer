@@ -1,3 +1,38 @@
+function Write-Banner {
+    param(
+        [bool]$IsAdmin = $false
+    )
+
+    $adminText = if ($IsAdmin) { "Administrator" } else { "Standard User" }
+    $adminColor = if ($IsAdmin) { "Green" } else { "Yellow" }
+
+    Write-Host ""
+    Write-Host "  ╔══════════════════════════════════════╗" -ForegroundColor Cyan
+    Write-Host "  ║   " -ForegroundColor Cyan -NoNewline
+    Write-Host "winget App Installer" -ForegroundColor White -NoNewline
+    Write-Host "              ║" -ForegroundColor Cyan
+    Write-Host "  ║   Running as: " -ForegroundColor Cyan -NoNewline
+    Write-Host "$($adminText.PadRight(23))" -ForegroundColor $adminColor -NoNewline
+    Write-Host "║" -ForegroundColor Cyan
+    Write-Host "  ╚══════════════════════════════════════╝" -ForegroundColor Cyan
+    Write-Host ""
+}
+
+function Write-ElapsedTime {
+    param(
+        [Parameter(Mandatory)]
+        [System.Diagnostics.Stopwatch]$Stopwatch
+    )
+
+    $elapsed = $Stopwatch.Elapsed
+    if ($elapsed.TotalMinutes -ge 1) {
+        $timeStr = "{0}m {1}s" -f [math]::Floor($elapsed.TotalMinutes), $elapsed.Seconds
+    } else {
+        $timeStr = "{0}s" -f [math]::Round($elapsed.TotalSeconds, 1)
+    }
+    Write-Host "  Total time: $timeStr" -ForegroundColor DarkGray
+}
+
 function Write-Status {
     param(
         [Parameter(Mandatory)]

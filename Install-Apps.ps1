@@ -32,6 +32,9 @@ if (-not $NoElevate -and -not (Test-IsAdmin)) {
     # If elevation was declined, continue without admin
 }
 
+# --- Show banner ---
+Write-Banner -IsAdmin (Test-IsAdmin)
+
 # --- Defaults ---
 if (-not $LogDir) {
     $LogDir = Join-Path $PSScriptRoot "logs"
@@ -143,21 +146,26 @@ if ($Profile) {
 
     # Process apps
     $results = @()
-    foreach ($appId in $profileData.Apps) {
+    $totalApps = $profileData.Apps.Count
+    $profileSw = [System.Diagnostics.Stopwatch]::StartNew()
+    for ($i = 0; $i -lt $totalApps; $i++) {
+        $appId = $profileData.Apps[$i]
         $isInstalled = Test-WingetAppInstalled -Id $appId
         if ($isInstalled) {
             if ($UpdateAll) {
-                $result = Invoke-AppAction -Id $appId -Action Upgrade -DryRun:$DryRun -LogPath $logPath
+                $result = Invoke-AppAction -Id $appId -Action Upgrade -DryRun:$DryRun -LogPath $logPath -CurrentIndex ($i + 1) -TotalCount $totalApps
             } else {
-                Write-Status "$appId already installed. Skipping." -Type Info
+                Write-Status "[$($i + 1)/$totalApps] $appId already installed. Skipping." -Type Info
                 Write-Log -Path $logPath -Message "Skipped $appId (already installed)" -Level INFO
                 $result = @{ Id = $appId; Action = "Skipped"; Success = $true; ExitCode = 0; Duration = 0 }
             }
         } else {
-            $result = Invoke-AppAction -Id $appId -Action Install -DryRun:$DryRun -LogPath $logPath
+            $result = Invoke-AppAction -Id $appId -Action Install -DryRun:$DryRun -LogPath $logPath -CurrentIndex ($i + 1) -TotalCount $totalApps
         }
         $results += $result
     }
+    $profileSw.Stop()
+    Write-ElapsedTime -Stopwatch $profileSw
 
     # Run post-install hook
     if ($profileData.PostInstall -and -not $DryRun) {
@@ -202,16 +210,29 @@ if ($UpdateAll) {
 
     $allApps = Get-AllCatalogApps -Catalog $catalog
     $results = @()
+    $toUpgrade = @()
 
+    # First pass: discover which apps are installed
     foreach ($app in $allApps) {
         Write-Host "  Checking $($app.id)..." -ForegroundColor DarkGray -NoNewline
         if (Test-WingetAppInstalled -Id $app.id) {
-            Write-Host " found, upgrading" -ForegroundColor Cyan
-            $result = Invoke-AppAction -Id $app.id -Action Upgrade -DryRun:$DryRun -LogPath $logPath
-            $results += $result
+            Write-Host " found" -ForegroundColor Cyan
+            $toUpgrade += $app
         } else {
             Write-Host " not installed" -ForegroundColor DarkGray
         }
+    }
+
+    # Second pass: upgrade with progress
+    if ($toUpgrade.Count -gt 0) {
+        Write-Status "Upgrading $($toUpgrade.Count) installed app(s)..." -Type Info
+        $updateSw = [System.Diagnostics.Stopwatch]::StartNew()
+        for ($i = 0; $i -lt $toUpgrade.Count; $i++) {
+            $result = Invoke-AppAction -Id $toUpgrade[$i].id -Action Upgrade -DryRun:$DryRun -LogPath $logPath -CurrentIndex ($i + 1) -TotalCount $toUpgrade.Count
+            $results += $result
+        }
+        $updateSw.Stop()
+        Write-ElapsedTime -Stopwatch $updateSw
     }
 
     if ($results.Count -eq 0) {
