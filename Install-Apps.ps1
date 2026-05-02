@@ -6,6 +6,8 @@ param(
     [switch]$Silent,
     [string]$Search,
     [string]$Export,
+    [string]$Import,
+    [switch]$NoElevate,
     [string]$LogDir
 )
 
@@ -13,11 +15,22 @@ param(
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
 
 # --- Dot-source modules ---
+. "$PSScriptRoot\src\Admin.ps1"
 . "$PSScriptRoot\src\UI.ps1"
 . "$PSScriptRoot\src\Logger.ps1"
 . "$PSScriptRoot\src\Config.ps1"
 . "$PSScriptRoot\src\Engine.ps1"
 . "$PSScriptRoot\src\Interactive.ps1"
+
+# --- Request admin elevation ---
+if (-not $NoElevate -and -not (Test-IsAdmin)) {
+    Write-Status "Not running as Administrator. Requesting elevation..." -Type Warning
+    $elevated = Request-Elevation -BoundParams $PSBoundParameters -ScriptPath $PSCommandPath
+    if ($elevated) {
+        exit 0
+    }
+    # If elevation was declined, continue without admin
+}
 
 # --- Defaults ---
 if (-not $LogDir) {
