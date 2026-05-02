@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "categories": [
+    {
+      "name": "Browsers",
+      "apps": [
+        { "id": "Google.Chrome", "name": "Google Chrome", "tags": ["browser", "general"] },
+        { "id": "Mozilla.Firefox", "name": "Firefox", "tags": ["browser", "general"] },
+        { "id": "LibreWolf.LibreWolf", "name": "LibreWolf", "tags": ["browser", "privacy"] },
+        { "id": "BraveSoftware.BraveBrowser", "name": "Brave Browser", "tags": ["browser", "privacy"] }
+      ]
+    },
+    {
+      "name": "Communication",
+      "apps": [
+        { "id": "Discord.Discord", "name": "Discord", "tags": ["chat", "general"] },
+        { "id": "WhatsApp.WhatsApp", "name": "WhatsApp", "tags": ["chat", "general"] },
+        { "id": "Mozilla.Thunderbird", "name": "Thunderbird", "tags": ["email", "general"] },
+        { "id": "Microsoft.Skype", "name": "Skype", "tags": ["chat"] },
+        { "id": "SlackTechnologies.Slack", "name": "Slack", "tags": ["chat", "dev-core", "enterprise"] },
+        { "id": "Microsoft.Teams", "name": "Microsoft Teams", "tags": ["chat", "enterprise"] },
+        { "id": "Zoom.Zoom", "name": "Zoom", "tags": ["video", "enterprise"] }
+      ]
+    },
+    {
+      "name": "Development",
+      "apps": [
+        { "id": "Git.Git", "name": "Git", "tags": ["dev-core", "vcs"] },
+        { "id": "GitHub.Desktop", "name": "GitHub Desktop", "tags": ["dev-core", "vcs"] },
+        { "id": "Microsoft.VisualStudioCode", "name": "VS Code", "tags": ["dev-core", "editor"] },
+        { "id": "JetBrains.PyCharm.Professional", "name": "PyCharm Professional", "tags": ["editor", "python"] },
+        { "id": "JetBrains.PyCharm.Community", "name": "PyCharm Community", "tags": ["editor", "python"] },
+        { "id": "OpenJS.Nodejs", "name": "Node.js", "tags": ["dev-core", "runtime"] },
+        { "id": "Amazon.AWSCLI", "name": "AWS CLI", "tags": ["cloud", "dev-tools"] },
+        { "id": "Microsoft.WindowsTerminal", "name": "Windows Terminal", "tags": ["dev-core", "terminal"] }
+      ]
+    },
+    {
+      "name": "Media",
+      "apps": [
+        { "id": "Spotify.Spotify", "name": "Spotify", "tags": ["media", "general"] },
+        { "id": "CodecGuide.K-LiteCodecPack.Standard", "name": "K-Lite Codec Pack", "tags": ["media", "codec"] },
+        { "id": "qBittorrent.qBittorrent", "name": "qBittorrent", "tags": ["media", "torrent"] }
+      ]
+    },
+    {
+      "name": "Gaming",
+      "apps": [
+        { "id": "Valve.Steam", "name": "Steam", "tags": ["gaming"] },
+        { "id": "Epic.EpicGamesLauncher", "name": "Epic Games Launcher", "tags": ["gaming"] }
+      ]
+    },
+    {
+      "name": "Networking",
+      "apps": [
+        { "id": "VMware.WorkstationPlayer", "name": "VMware Workstation Player", "tags": ["networking", "virtualization"] },
+        { "id": "WiresharkFoundation.Wireshark", "name": "Wireshark", "tags": ["networking", "dev-tools"] }
+      ]
+    },
+    {
+      "name": "Utility",
+      "apps": [
+        { "id": "7zip.7zip", "name": "7-Zip", "tags": ["utility", "general"] },
+        { "id": "RARLab.WinRAR", "name": "WinRAR", "tags": ["utility", "general"] },
+        { "id": "Greenshot.Greenshot", "name": "Greenshot", "tags": ["utility", "screenshot"] },
+        { "id": "Microsoft.PowerToys", "name": "PowerToys", "tags": ["utility", "dev-tools"] },
+        { "id": "CPUID.CPU-Z", "name": "CPU-Z", "tags": ["utility", "diagnostics"] }
+      ]
+    }
+  ]
+}
