@@ -4,14 +4,17 @@ A PowerShell-based tool for automating Windows app installation using [winget](h
 
 ## Features
 
-- **Interactive mode** — guided category-based app selection with input validation
+- **Admin self-elevation** — prompts for UAC once at startup so individual installs don't each require elevation
+- **Interactive mode** — guided category-based app selection with select-all, back navigation, and tag display
 - **Profile mode** — unattended installs from JSON configuration files (idempotent)
+- **Interactive search** — search the winget catalog, then install or add results to your catalog
+- **Import** — import apps from `winget export` to create profiles or extend your catalog
 - **Update-all** — upgrade every installed catalog app in one command
 - **Dry-run** — preview what would happen without calling winget
 - **Export** — generate a profile from currently installed apps
-- **Search** — search the winget catalog directly
+- **Progress tracking** — [X/Y] counter and elapsed time during installs
 - **Logging** — timestamped log files with install reports
-- **Extensible catalog** — external JSON app catalog with custom overlay support
+- **Extensible catalog** — 62 apps across 9 categories, with custom overlay support
 - **Pre/post hooks** — run scripts before or after profile installs
 
 ## Requirements
@@ -49,7 +52,7 @@ To install to a custom directory:
 **PowerShell:**
 
 ```powershell
-# Interactive mode (default)
+# Interactive mode (default) — auto-elevates to admin
 powershell -ExecutionPolicy Bypass -File .\Install-Apps.ps1
 
 # Install from a profile
@@ -61,14 +64,21 @@ powershell -ExecutionPolicy Bypass -File .\Install-Apps.ps1 -Profile profiles/de
 # Upgrade all installed catalog apps
 powershell -ExecutionPolicy Bypass -File .\Install-Apps.ps1 -UpdateAll
 
-# Search winget for an app
+# Search winget interactively (install or add to catalog)
 powershell -ExecutionPolicy Bypass -File .\Install-Apps.ps1 -Search "visual studio"
+
+# Import from another machine's winget export
+winget export -o my-apps.json   # on source machine
+powershell -ExecutionPolicy Bypass -File .\Install-Apps.ps1 -Import my-apps.json
 
 # Export installed apps to a profile
 powershell -ExecutionPolicy Bypass -File .\Install-Apps.ps1 -Export my-setup.json
 
 # Silent profile install (no prompts, for automation)
 powershell -ExecutionPolicy Bypass -File .\Install-Apps.ps1 -Profile profiles/developer.json -Silent
+
+# Skip admin elevation
+powershell -ExecutionPolicy Bypass -File .\Install-Apps.ps1 -NoElevate
 ```
 
 ## Parameters
@@ -80,9 +90,19 @@ powershell -ExecutionPolicy Bypass -File .\Install-Apps.ps1 -Profile profiles/de
 | `-UpdateAll` | Upgrade all installed apps found in the catalog |
 | `-DryRun` | Show what would happen without executing |
 | `-Silent` | Suppress prompts (requires `-Profile`) |
-| `-Search <term>` | Search the winget catalog |
+| `-Search <term>` | Search winget interactively — install or add to catalog |
+| `-Import <path>` | Import apps from a `winget export` JSON file |
 | `-Export <path>` | Export installed catalog apps to a profile JSON |
+| `-NoElevate` | Skip the admin elevation prompt at startup |
 | `-LogDir <path>` | Custom log directory (default: `./logs`) |
+
+## Interactive Mode
+
+When selecting apps from categories:
+- Enter numbers separated by spaces (e.g. `1 3 4`)
+- Enter `a` to select all apps in a category
+- Enter `b` to go back to the previous category
+- Leave empty to skip a category
 
 ## Profiles
 
@@ -117,7 +137,19 @@ Profiles are JSON files that define a set of apps to install. See `profiles/` fo
 
 ## App Catalog
 
-The app catalog lives in `catalog/apps.json`. Each app has an `id` (winget package ID), `name`, and `tags`.
+The app catalog lives in `catalog/apps.json` with 62 apps across 9 categories:
+
+| Category | Apps |
+|----------|------|
+| Browsers | Chrome, Firefox, LibreWolf, Brave, Edge, Arc |
+| Communication | Discord, WhatsApp, Thunderbird, Slack, Teams, Zoom, Telegram, Element |
+| Development | Git, GitHub CLI, VS Code, JetBrains IDEs, Node.js, Python, Docker, Postman, cloud CLIs, terminals |
+| Media | Spotify, VLC, OBS Studio, GIMP, Audacity, HandBrake, qBittorrent |
+| Gaming | Steam, Epic Games, GOG Galaxy |
+| Security | Bitwarden, KeePassXC, NordVPN, Proton VPN, Malwarebytes |
+| Productivity | Notion, Obsidian, LibreOffice, Adobe Reader, Notepad++ |
+| Networking | VMware, Wireshark, PuTTY, WinSCP, Nmap |
+| Utility | 7-Zip, WinRAR, PowerToys, Everything, WinDirStat, Sysinternals, HWiNFO |
 
 To add your own apps without modifying the main catalog, create `catalog/custom-apps.json` with the same format — it will be merged automatically.
 
@@ -128,20 +160,19 @@ Install.ps1             # Bootstrap script (irm | iex)
 Install-Apps.ps1        # Entry point
 Run-Installer.cmd       # Batch launcher (double-click)
 catalog/
-  apps.json             # Master app catalog (31 apps, 7 categories)
+  apps.json             # Master app catalog (62 apps, 9 categories)
 profiles/
   developer.json        # Dev workstation profile
   general.json          # General user profile
   example-custom.json   # Template for custom profiles
 src/
-  UI.ps1                # Console output and input validation
+  Admin.ps1             # Admin detection and UAC elevation
+  UI.ps1                # Console output, banner, and input validation
   Logger.ps1            # File logging and install reports
   Config.ps1            # Catalog and profile loading
-  Engine.ps1            # Core winget install/upgrade logic
-  Interactive.ps1       # Interactive menu mode
+  Engine.ps1            # Core winget install/upgrade logic with progress
+  Interactive.ps1       # Interactive menu with back navigation
+  Search.ps1            # Winget search parsing and interactive selection
+  Import.ps1            # Winget export import and profile generation
 logs/                   # Created at runtime (gitignored)
 ```
-
-## Legacy Scripts
-
-The original `AppInstaller.ps1` and `GetMyApps.ps1` are preserved for reference but are superseded by `Install-Apps.ps1`.
