@@ -1,0 +1,15 @@
+{
+  "name": "General User",
+  "description": "Common apps for everyday use",
+  "apps": [
+    "Google.Chrome",
+    "Discord.Discord",
+    "Spotify.Spotify",
+    "7zip.7zip",
+    "Microsoft.PowerToys",
+    "Zoom.Zoom"
+  ],
+  "tags": [],
+  "preInstall": null,
+  "postInstall": null
+}

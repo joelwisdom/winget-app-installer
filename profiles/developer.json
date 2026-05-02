@@ -1,0 +1,17 @@
+{
+  "name": "Developer Workstation",
+  "description": "Core development tools for a software engineering setup",
+  "apps": [
+    "Git.Git",
+    "GitHub.Desktop",
+    "Microsoft.VisualStudioCode",
+    "OpenJS.Nodejs",
+    "Microsoft.WindowsTerminal",
+    "Amazon.AWSCLI",
+    "7zip.7zip",
+    "Microsoft.PowerToys"
+  ],
+  "tags": [],
+  "preInstall": null,
+  "postInstall": null
+}

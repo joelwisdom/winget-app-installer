@@ -1,0 +1,11 @@
+{
+  "name": "My Custom Profile",
+  "description": "Copy this file and customize it with your preferred apps",
+  "apps": [
+    "Google.Chrome",
+    "Git.Git"
+  ],
+  "tags": ["dev-core"],
+  "preInstall": null,
+  "postInstall": null
+}
