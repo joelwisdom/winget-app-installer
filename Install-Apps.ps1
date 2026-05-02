@@ -76,6 +76,14 @@ if ($Search) {
     exit 0
 }
 
+# --- Handle import mode ---
+if ($Import) {
+    . "$PSScriptRoot\src\Import.ps1"
+    Import-WingetExport -Path $Import -CatalogRoot $PSScriptRoot
+    Wait-ForKeyPress
+    exit 0
+}
+
 # --- Handle export mode ---
 if ($Export) {
     Write-Status "Exporting installed apps to profile..." -Type Info
