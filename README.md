@@ -20,6 +20,28 @@ A PowerShell-based tool for automating Windows app installation using [winget](h
 - PowerShell 5.1+
 - [winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/) (ships with Windows 11; install via Microsoft Store on Windows 10)
 
+## Install
+
+**One-liner (recommended):**
+
+```powershell
+irm https://raw.githubusercontent.com/joelwisdom/winget-app-installer/master/Install.ps1 | iex
+```
+
+This downloads the tool to `%LOCALAPPDATA%\winget-app-installer` and optionally launches the interactive installer. To install without running:
+
+```powershell
+& ([scriptblock]::Create((irm https://raw.githubusercontent.com/joelwisdom/winget-app-installer/master/Install.ps1))) -NoRun
+```
+
+To install to a custom directory:
+
+```powershell
+& ([scriptblock]::Create((irm https://raw.githubusercontent.com/joelwisdom/winget-app-installer/master/Install.ps1))) -InstallDir "C:\Tools\winget-installer"
+```
+
+**Alternative:** Clone the repo and run directly.
+
 ## Quick Start
 
 **Double-click:** Run `Run-Installer.cmd` to launch interactive mode.
@@ -102,6 +124,7 @@ To add your own apps without modifying the main catalog, create `catalog/custom-
 ## Project Structure
 
 ```
+Install.ps1             # Bootstrap script (irm | iex)
 Install-Apps.ps1        # Entry point
 Run-Installer.cmd       # Batch launcher (double-click)
 catalog/
