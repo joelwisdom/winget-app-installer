@@ -7,7 +7,9 @@
         { "id": "Google.Chrome", "name": "Google Chrome", "tags": ["browser", "general"] },
         { "id": "Mozilla.Firefox", "name": "Firefox", "tags": ["browser", "general"] },
         { "id": "LibreWolf.LibreWolf", "name": "LibreWolf", "tags": ["browser", "privacy"] },
-        { "id": "BraveSoftware.BraveBrowser", "name": "Brave Browser", "tags": ["browser", "privacy"] }
+        { "id": "BraveSoftware.BraveBrowser", "name": "Brave Browser", "tags": ["browser", "privacy"] },
+        { "id": "Microsoft.Edge", "name": "Microsoft Edge", "tags": ["browser", "general"] },
+        { "id": "ArcComputer.Arc", "name": "Arc", "tags": ["browser", "general"] }
       ]
     },
     {
@@ -19,7 +21,9 @@
         { "id": "Microsoft.Skype", "name": "Skype", "tags": ["chat"] },
         { "id": "SlackTechnologies.Slack", "name": "Slack", "tags": ["chat", "dev-core", "enterprise"] },
         { "id": "Microsoft.Teams", "name": "Microsoft Teams", "tags": ["chat", "enterprise"] },
-        { "id": "Zoom.Zoom", "name": "Zoom", "tags": ["video", "enterprise"] }
+        { "id": "Zoom.Zoom", "name": "Zoom", "tags": ["video", "enterprise"] },
+        { "id": "Telegram.TelegramDesktop", "name": "Telegram", "tags": ["chat", "privacy"] },
+        { "id": "Element.Element", "name": "Element (Matrix)", "tags": ["chat", "privacy", "enterprise"] }
       ]
     },
     {
@@ -27,34 +31,73 @@
       "apps": [
         { "id": "Git.Git", "name": "Git", "tags": ["dev-core", "vcs"] },
         { "id": "GitHub.Desktop", "name": "GitHub Desktop", "tags": ["dev-core", "vcs"] },
+        { "id": "GitHub.cli", "name": "GitHub CLI", "tags": ["dev-core", "vcs"] },
         { "id": "Microsoft.VisualStudioCode", "name": "VS Code", "tags": ["dev-core", "editor"] },
         { "id": "JetBrains.PyCharm.Professional", "name": "PyCharm Professional", "tags": ["editor", "python"] },
         { "id": "JetBrains.PyCharm.Community", "name": "PyCharm Community", "tags": ["editor", "python"] },
+        { "id": "JetBrains.Rider", "name": "JetBrains Rider", "tags": ["editor", "dotnet"] },
+        { "id": "JetBrains.IntelliJIDEA.Ultimate", "name": "IntelliJ IDEA Ultimate", "tags": ["editor", "java"] },
+        { "id": "JetBrains.IntelliJIDEA.Community", "name": "IntelliJ IDEA Community", "tags": ["editor", "java"] },
         { "id": "OpenJS.Nodejs", "name": "Node.js", "tags": ["dev-core", "runtime"] },
+        { "id": "Python.Python.3.12", "name": "Python 3.12", "tags": ["dev-core", "runtime", "python"] },
+        { "id": "Docker.DockerDesktop", "name": "Docker Desktop", "tags": ["dev-core", "containers"] },
+        { "id": "Postman.Postman", "name": "Postman", "tags": ["dev-tools", "api"] },
         { "id": "Amazon.AWSCLI", "name": "AWS CLI", "tags": ["cloud", "dev-tools"] },
-        { "id": "Microsoft.WindowsTerminal", "name": "Windows Terminal", "tags": ["dev-core", "terminal"] }
+        { "id": "Microsoft.AzureCLI", "name": "Azure CLI", "tags": ["cloud", "dev-tools"] },
+        { "id": "Microsoft.WindowsTerminal", "name": "Windows Terminal", "tags": ["dev-core", "terminal"] },
+        { "id": "wez.wezterm", "name": "WezTerm", "tags": ["dev-core", "terminal"] },
+        { "id": "JanDeDobbeleer.OhMyPosh", "name": "Oh My Posh", "tags": ["dev-tools", "terminal"] }
       ]
     },
     {
       "name": "Media",
       "apps": [
         { "id": "Spotify.Spotify", "name": "Spotify", "tags": ["media", "general"] },
+        { "id": "VideoLAN.VLC", "name": "VLC Media Player", "tags": ["media", "general"] },
+        { "id": "OBSProject.OBSStudio", "name": "OBS Studio", "tags": ["media", "streaming"] },
+        { "id": "GIMP.GIMP", "name": "GIMP", "tags": ["media", "graphics"] },
+        { "id": "Audacity.Audacity", "name": "Audacity", "tags": ["media", "audio"] },
         { "id": "CodecGuide.K-LiteCodecPack.Standard", "name": "K-Lite Codec Pack", "tags": ["media", "codec"] },
-        { "id": "qBittorrent.qBittorrent", "name": "qBittorrent", "tags": ["media", "torrent"] }
+        { "id": "qBittorrent.qBittorrent", "name": "qBittorrent", "tags": ["media", "torrent"] },
+        { "id": "HandBrake.HandBrake", "name": "HandBrake", "tags": ["media", "video"] }
       ]
     },
     {
       "name": "Gaming",
       "apps": [
         { "id": "Valve.Steam", "name": "Steam", "tags": ["gaming"] },
-        { "id": "Epic.EpicGamesLauncher", "name": "Epic Games Launcher", "tags": ["gaming"] }
+        { "id": "EpicGames.EpicGamesLauncher", "name": "Epic Games Launcher", "tags": ["gaming"] },
+        { "id": "GOG.Galaxy", "name": "GOG Galaxy", "tags": ["gaming"] }
+      ]
+    },
+    {
+      "name": "Security",
+      "apps": [
+        { "id": "Bitwarden.Bitwarden", "name": "Bitwarden", "tags": ["security", "general"] },
+        { "id": "KeePassXCTeam.KeePassXC", "name": "KeePassXC", "tags": ["security", "general"] },
+        { "id": "NordSecurity.NordVPN", "name": "NordVPN", "tags": ["security", "vpn"] },
+        { "id": "ProtonTechnologies.ProtonVPN", "name": "Proton VPN", "tags": ["security", "vpn", "privacy"] },
+        { "id": "Malwarebytes.Malwarebytes", "name": "Malwarebytes", "tags": ["security", "antivirus"] }
+      ]
+    },
+    {
+      "name": "Productivity",
+      "apps": [
+        { "id": "Notion.Notion", "name": "Notion", "tags": ["productivity", "general"] },
+        { "id": "Obsidian.Obsidian", "name": "Obsidian", "tags": ["productivity", "notes"] },
+        { "id": "TheDocumentFoundation.LibreOffice", "name": "LibreOffice", "tags": ["productivity", "office"] },
+        { "id": "Adobe.Acrobat.Reader.64-bit", "name": "Adobe Acrobat Reader", "tags": ["productivity", "pdf"] },
+        { "id": "Notepad++.Notepad++", "name": "Notepad++", "tags": ["productivity", "editor", "general"] }
       ]
     },
     {
       "name": "Networking",
       "apps": [
         { "id": "VMware.WorkstationPlayer", "name": "VMware Workstation Player", "tags": ["networking", "virtualization"] },
-        { "id": "WiresharkFoundation.Wireshark", "name": "Wireshark", "tags": ["networking", "dev-tools"] }
+        { "id": "WiresharkFoundation.Wireshark", "name": "Wireshark", "tags": ["networking", "dev-tools"] },
+        { "id": "PuTTY.PuTTY", "name": "PuTTY", "tags": ["networking", "ssh"] },
+        { "id": "WinSCP.WinSCP", "name": "WinSCP", "tags": ["networking", "sftp"] },
+        { "id": "Insecure.Nmap", "name": "Nmap", "tags": ["networking", "security"] }
       ]
     },
     {
@@ -64,7 +107,12 @@
         { "id": "RARLab.WinRAR", "name": "WinRAR", "tags": ["utility", "general"] },
         { "id": "Greenshot.Greenshot", "name": "Greenshot", "tags": ["utility", "screenshot"] },
         { "id": "Microsoft.PowerToys", "name": "PowerToys", "tags": ["utility", "dev-tools"] },
-        { "id": "CPUID.CPU-Z", "name": "CPU-Z", "tags": ["utility", "diagnostics"] }
+        { "id": "CPUID.CPU-Z", "name": "CPU-Z", "tags": ["utility", "diagnostics"] },
+        { "id": "voidtools.Everything", "name": "Everything Search", "tags": ["utility", "general"] },
+        { "id": "WinDirStat.WinDirStat", "name": "WinDirStat", "tags": ["utility", "diagnostics"] },
+        { "id": "Microsoft.Sysinternals.ProcessExplorer", "name": "Process Explorer", "tags": ["utility", "diagnostics", "dev-tools"] },
+        { "id": "Microsoft.Sysinternals.Autoruns", "name": "Autoruns", "tags": ["utility", "diagnostics", "dev-tools"] },
+        { "id": "REALiX.HWiNFO", "name": "HWiNFO", "tags": ["utility", "diagnostics"] }
       ]
     }
   ]
